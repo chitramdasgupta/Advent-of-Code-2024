@@ -3,17 +3,17 @@ package org.example.day_03;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Two {
-    private final Deque<String[]> matches;
+    private final List<String[]> matches;
 
     public Two(String path) {
-        matches = new LinkedList<>();
+        matches = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -25,13 +25,13 @@ public class Two {
                 while (matcher.find()) {
                     if (matcher.group(2) != null && matcher.group(3) != null) {
                         // Match for mul(digits,digits), capture the digits
-                        matches.offerLast(new String[]{matcher.group(2), matcher.group(3)});
+                        matches.add(new String[]{matcher.group(2), matcher.group(3)});
                     } else if (matcher.group(4) != null) {
                         // Match for do()
-                        matches.offerLast(new String[]{"do()"});
+                        matches.add(new String[]{"do()"});
                     } else if (matcher.group(5) != null) {
                         // Match for don't()
-                        matches.offerLast(new String[]{"don't()"});
+                        matches.add(new String[]{"don't()"});
                     }
                 }
             }
